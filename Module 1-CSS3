@@ -1,0 +1,379 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Community Event Portal - CSS3 Exercises</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================
+   Exercise 1 & 2: Internal CSS & Comments
+===================================== */
+
+/* Universal Selector Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* Body Styling with Background Image */
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f4f4 url('https://picsum.photos/1200/800') no-repeat center center fixed;
+    background-size:cover;
+    color:#333;
+}
+
+/* =====================================
+   Exercise 3: Selectors
+===================================== */
+
+/* ID Selector */
+#mainHeader{
+    background:linear-gradient(to right,#0066cc,#00aaff);
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+/* Element Selector */
+h2{
+    color:#0056b3;
+    margin-bottom:10px;
+}
+
+/* Class Selector */
+.eventCard{
+    background:rgba(255,255,255,0.9);
+    border:2px solid #007BFF;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+}
+
+/* Grouping Selector */
+h3,p{
+    margin-bottom:10px;
+}
+
+/* =====================================
+   Exercise 4: Colors & Backgrounds
+===================================== */
+
+.section-title{
+    background:linear-gradient(to right,#0056b3,#00c6ff);
+    color:white;
+    padding:10px;
+    border-radius:5px;
+}
+
+.highlight{
+    color:#ff0000;
+    background:rgba(255,255,0,0.4);
+}
+
+/* =====================================
+   Exercise 5: Typography
+===================================== */
+
+.description{
+    font-size:18px;
+    font-style:italic;
+    font-weight:400;
+    text-align:justify;
+    text-transform:capitalize;
+    letter-spacing:1px;
+    line-height:1.8;
+}
+
+/* =====================================
+   Exercise 6: Navigation & Links
+===================================== */
+
+nav{
+    background:#222;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+}
+
+nav li{
+    margin:10px;
+    padding:10px;
+}
+
+nav a:link{
+    color:white;
+    text-decoration:none;
+}
+
+nav a:visited{
+    color:lightgray;
+}
+
+nav a:hover{
+    color:yellow;
+}
+
+nav a:active{
+    color:red;
+}
+
+/* =====================================
+   Exercise 7: Table Styling
+===================================== */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    text-align:center;
+    background:white;
+}
+
+th{
+    background:#007BFF;
+    color:white;
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:10px;
+}
+
+tr:nth-child(even){
+    background:#f2f2f2;
+}
+
+/* =====================================
+   Exercise 8: Box Model
+===================================== */
+
+.box-demo{
+    border:3px solid green;
+    padding:20px;
+    margin:20px;
+    background:white;
+}
+
+input:focus{
+    outline:3px solid orange;
+}
+
+.hiddenElement{
+    visibility:hidden;
+}
+
+.noneElement{
+    display:none;
+}
+
+/* =====================================
+   Exercise 9: Multi Column Layout
+===================================== */
+
+.newsArticle{
+    column-count:2;
+    column-gap:30px;
+    column-rule:1px solid gray;
+    background:white;
+    padding:20px;
+    margin:20px;
+}
+
+/* =====================================
+   Exercise 10: Flexbox Layout
+===================================== */
+
+.events-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.eventCard{
+    flex:1 1 300px;
+}
+
+/* =====================================
+   Footer
+===================================== */
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:20px;
+}
+
+/* =====================================
+   Responsive Media Query
+===================================== */
+
+@media screen and (max-width:768px){
+
+    nav ul{
+        flex-direction:column;
+    }
+
+    body{
+        font-size:14px;
+    }
+
+    img{
+        width:100%;
+        height:auto;
+    }
+
+    .eventCard{
+        margin:10px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Exercise 1: Inline Style -->
+<h1 style="color:red; text-align:center;">
+    Local Community Event Portal
+</h1>
+
+<!-- Navigation -->
+<nav>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Header -->
+<header id="mainHeader">
+    <h2>Community Events Dashboard</h2>
+    <p>Stay Connected with Local Activities</p>
+</header>
+
+<!-- Event Cards -->
+<section class="events-container">
+
+    <div class="eventCard">
+        <h3 class="section-title">Music Festival</h3>
+        <p class="description">
+            Join our annual music festival featuring local artists and cultural performances.
+        </p>
+        <span class="highlight">Early Bird Registration Open!</span>
+    </div>
+
+    <div class="eventCard">
+        <h3 class="section-title">Sports Meet</h3>
+        <p class="description">
+            Participate in sports competitions and community fitness activities.
+        </p>
+    </div>
+
+    <div class="eventCard">
+        <h3 class="section-title">Art Exhibition</h3>
+        <p class="description">
+            Explore creative works from talented local artists.
+        </p>
+    </div>
+
+</section>
+
+<!-- Exercise 7: Table -->
+<section class="eventCard">
+    <h2>Upcoming Events Schedule</h2>
+
+    <table>
+        <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Location</th>
+        </tr>
+
+        <tr>
+            <td>Music Festival</td>
+            <td>15 June</td>
+            <td>City Hall</td>
+        </tr>
+
+        <tr>
+            <td>Sports Meet</td>
+            <td>20 June</td>
+            <td>Sports Complex</td>
+        </tr>
+
+        <tr>
+            <td>Art Exhibition</td>
+            <td>25 June</td>
+            <td>Community Center</td>
+        </tr>
+    </table>
+</section>
+
+<!-- Exercise 8: Box Model -->
+<section class="box-demo">
+    <h2>Box Model Example</h2>
+    <p>
+        This section demonstrates margin, border, and padding.
+    </p>
+
+    <input type="text" placeholder="Click here to see outline effect">
+</section>
+
+<!-- Visibility Hidden -->
+<p class="hiddenElement">
+    This text uses visibility:hidden.
+</p>
+
+<!-- Display None -->
+<p class="noneElement">
+    This text uses display:none.
+</p>
+
+<!-- Exercise 9: Multi Column -->
+<section>
+    <h2 class="section-title">Community Bulletin</h2>
+
+    <div class="newsArticle">
+        The city council has announced several new
+        community development initiatives aimed at
+        improving public services and encouraging
+        participation in local events.
+
+        Residents can join volunteer programs,
+        environmental awareness campaigns,
+        sports activities, cultural festivals,
+        and educational workshops.
+
+        These initiatives are expected to strengthen
+        community engagement and create more
+        opportunities for collaboration among citizens.
+    </div>
+</section>
+
+<!-- Exercise 10: Responsive Image -->
+<section class="eventCard">
+    <h2>Community Gallery</h2>
+
+    <img src="https://picsum.photos/500/250"
+         alt="Community Event">
+</section>
+
+<footer>
+    <p>© 2026 Local Community Event Portal</p>
+</footer>
+
+</body>
+</html>
+```

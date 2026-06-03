@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Community Event Portal</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Navigation */
+        nav {
+            background: #333;
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        /* Welcome Banner */
+        #welcomeBanner {
+            background-color: blue;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .highlight {
+            background-color: yellow;
+            padding: 3px;
+        }
+
+        /* Gallery */
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        .gallery-img {
+            border: 3px solid black;
+            width: 200px;
+            height: 150px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Form Styling */
+        form {
+            width: 60%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+
+    <script>
+        let formChanged = false;
+
+        /* Phone Validation */
+        function validatePhone() {
+            let phone = document.getElementById("phone").value;
+            let pattern = /^[0-9]{10}$/;
+
+            if (!pattern.test(phone)) {
+                alert("Enter a valid 10-digit phone number");
+            }
+        }
+
+        /* Event Fee Display */
+        function showFee() {
+            let eventType = document.getElementById("eventType").value;
+            let fee = "";
+
+            switch(eventType) {
+                case "Music":
+                    fee = "₹200";
+                    break;
+                case "Sports":
+                    fee = "₹300";
+                    break;
+                case "Workshop":
+                    fee = "₹500";
+                    break;
+                default:
+                    fee = "₹0";
+            }
+
+            document.getElementById("feeDisplay").innerHTML =
+                "Selected Event Fee: " + fee;
+
+            localStorage.setItem("preferredEvent", eventType);
+        }
+
+        /* Form Submit */
+        function registerEvent() {
+            document.getElementById("confirmation").value =
+                "Registration Submitted Successfully!";
+        }
+
+        /* Double Click Image */
+        function enlargeImage(img) {
+            if(img.style.width === "400px") {
+                img.style.width = "200px";
+            } else {
+                img.style.width = "400px";
+            }
+        }
+
+        /* Character Count */
+        function countChars() {
+            let txt = document.getElementById("feedback").value;
+            document.getElementById("charCount").innerHTML =
+                "Characters: " + txt.length;
+        }
+
+        /* Video Event */
+        function videoReady() {
+            document.getElementById("videoMsg").innerHTML =
+                "Video ready to play";
+        }
+
+        /* Load Saved Preference */
+        window.onload = function() {
+            let savedEvent = localStorage.getItem("preferredEvent");
+
+            if(savedEvent) {
+                document.getElementById("eventType").value = savedEvent;
+                showFee();
+            }
+        }
+
+        /* Clear Storage */
+        function clearPreferences() {
+            localStorage.clear();
+            sessionStorage.clear();
+            alert("Preferences Cleared");
+        }
+
+        /* Geolocation */
+        function findLocation() {
+
+            const options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    document.getElementById("location").innerHTML =
+                        "Latitude: " + position.coords.latitude +
+                        "<br>Longitude: " + position.coords.longitude;
+                },
+                function(error) {
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            alert("Permission denied.");
+                            break;
+                        case error.TIMEOUT:
+                            alert("Request timed out.");
+                            break;
+                        default:
+                            alert("Location error.");
+                    }
+                },
+                options
+            );
+        }
+
+        /* Warn Before Leaving Page */
+        window.onbeforeunload = function() {
+            if(formChanged) {
+                return "You have unsaved changes.";
+            }
+        };
+
+        function markChanged() {
+            formChanged = true;
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+        <a href="help.html" target="_blank">Help</a>
+    </nav>
+
+    <!-- Main -->
+    <main>
+
+        <!-- Welcome Banner -->
+        <div id="welcomeBanner">
+            <h1>Welcome to Local Community Event Portal</h1>
+
+            <p>
+                Enjoy our
+                <span style="color:red; font-weight:bold;">
+                    Special Festival Offer!
+                </span>
+            </p>
+
+            <p class="highlight">
+                Register early to reserve your seat.
+            </p>
+        </div>
+
+        <!-- Home Section -->
+        <section id="home">
+            <h2>Home</h2>
+            <p class="highlight">
+                Stay connected with community activities.
+            </p>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events">
+            <h2>Past Community Events Gallery</h2>
+
+            <table border="1">
+                <tr>
+                    <td>
+                        <img src="event1.jpg"
+                             alt="Music Festival"
+                             title="Music Festival"
+                             class="gallery-img"
+                             ondblclick="enlargeImage(this)">
+                        <p>Music Festival</p>
+                    </td>
+
+                    <td>
+                        <img src="event2.jpg"
+                             alt="Sports Meet"
+                             title="Sports Meet"
+                             class="gallery-img"
+                             ondblclick="enlargeImage(this)">
+                        <p>Sports Meet</p>
+                    </td>
+
+                    <td>
+                        <img src="event3.jpg"
+                             alt="Workshop"
+                             title="Workshop"
+                             class="gallery-img"
+                             ondblclick="enlargeImage(this)">
+                        <p>Skill Workshop</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <img src="event4.jpg"
+                             alt="Art Show"
+                             title="Art Show"
+                             class="gallery-img"
+                             ondblclick="enlargeImage(this)">
+                        <p>Art Show</p>
+                    </td>
+
+                    <td>
+                        <img src="event5.jpg"
+                             alt="Food Festival"
+                             title="Food Festival"
+                             class="gallery-img"
+                             ondblclick="enlargeImage(this)">
+                        <p>Food Festival</p>
+                    </td>
+
+                    <td>
+                        <img src="event6.jpg"
+                             alt="Community Drive"
+                             title="Community Drive"
+                             class="gallery-img"
+                             ondblclick="enlargeImage(this)">
+                        <p>Community Drive</p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Registration Form -->
+        <section>
+            <h2>Event Registration</h2>
+
+            <form oninput="markChanged()">
+
+                <label>Name:</label>
+                <input type="text"
+                       placeholder="Enter your name"
+                       required
+                       autofocus>
+
+                <label>Email:</label>
+                <input type="email"
+                       placeholder="Enter your email"
+                       required>
+
+                <label>Phone:</label>
+                <input type="text"
+                       id="phone"
+                       onblur="validatePhone()">
+
+                <label>Date:</label>
+                <input type="date" required>
+
+                <label>Event Type:</label>
+                <select id="eventType" onchange="showFee()">
+                    <option value="">Select Event</option>
+                    <option value="Music">Music</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Workshop">Workshop</option>
+                </select>
+
+                <p id="feeDisplay"></p>
+
+                <label>Message:</label>
+                <textarea rows="4"></textarea>
+
+                <button type="button"
+                        onclick="registerEvent()">
+                    Submit Registration
+                </button>
+
+                <br><br>
+
+                <output id="confirmation"></output>
+
+            </form>
+        </section>
+
+        <!-- Feedback -->
+        <section>
+            <h2>Event Feedback</h2>
+
+            <textarea id="feedback"
+                      rows="5"
+                      onkeyup="countChars()"
+                      placeholder="Enter feedback">
+            </textarea>
+
+            <p id="charCount">Characters: 0</p>
+        </section>
+
+        <!-- Video Invite -->
+        <section>
+            <h2>Event Promo Video</h2>
+
+            <video width="400"
+                   controls
+                   oncanplay="videoReady()">
+                <source src="promo.mp4" type="video/mp4">
+            </video>
+
+            <p id="videoMsg"></p>
+        </section>
+
+        <!-- Preferences -->
+        <section>
+            <h2>User Preferences</h2>
+
+            <button onclick="clearPreferences()">
+                Clear Preferences
+            </button>
+        </section>
+
+        <!-- Geolocation -->
+        <section>
+            <h2>Nearby Events</h2>
+
+            <button onclick="findLocation()">
+                Find Nearby Events
+            </button>
+
+            <p id="location"></p>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: community@cityportal.com</p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Local Community Event Portal</p>
+    </footer>
+
+</body>
+</html>
