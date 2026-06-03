@@ -1,0 +1,431 @@
+import java.sql.*;
+import java.net.*;
+import java.io.*;
+import java.net.http.*;
+import java.net.URI;
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.concurrent.*;
+
+public class CoreJavaPart2 {
+
+    public static void main(String[] args) throws Exception {
+
+        System.out.println("===== Exercises 31-41 =====");
+
+        reflectionDemo();
+
+        patternDemo("Hello");
+
+        executorDemo();
+
+        httpClientDemo();
+
+        virtualThreadDemo();
+    }
+
+    // ==========================
+    // 31 JDBC Connection
+    // ==========================
+    static void jdbcConnectionDemo() {
+
+        try {
+
+            Connection con =
+                    DriverManager.getConnection(
+                            "jdbc:mysql://localhost:3306/studentdb",
+                            "root",
+                            "password");
+
+            Statement stmt =
+                    con.createStatement();
+
+            ResultSet rs =
+                    stmt.executeQuery(
+                            "SELECT * FROM students");
+
+            while(rs.next()) {
+
+                System.out.println(
+                        rs.getInt("id")
+                                + " "
+                                + rs.getString("name"));
+            }
+
+            con.close();
+
+        } catch(Exception e) {
+
+            System.out.println(e);
+        }
+    }
+
+    // ==========================
+    // 32 JDBC Insert Update
+    // ==========================
+    static void insertStudent(
+            int id,
+            String name,
+            int age) {
+
+        try {
+
+            Connection con =
+                    DriverManager.getConnection(
+                            "jdbc:mysql://localhost:3306/studentdb",
+                            "root",
+                            "password");
+
+            PreparedStatement ps =
+                    con.prepareStatement(
+                            "INSERT INTO students VALUES(?,?,?)");
+
+            ps.setInt(1,id);
+            ps.setString(2,name);
+            ps.setInt(3,age);
+
+            ps.executeUpdate();
+
+            con.close();
+
+        } catch(Exception e) {
+
+            System.out.println(e);
+        }
+    }
+
+    static void updateStudent(
+            int id,
+            String name) {
+
+        try {
+
+            Connection con =
+                    DriverManager.getConnection(
+                            "jdbc:mysql://localhost:3306/studentdb",
+                            "root",
+                            "password");
+
+            PreparedStatement ps =
+                    con.prepareStatement(
+                            "UPDATE students SET name=? WHERE id=?");
+
+            ps.setString(1,name);
+            ps.setInt(2,id);
+
+            ps.executeUpdate();
+
+            con.close();
+
+        } catch(Exception e) {
+
+            System.out.println(e);
+        }
+    }
+
+    // ==========================
+    // 33 JDBC Transaction
+    // ==========================
+    static void transferMoney(
+            int from,
+            int to,
+            double amount) {
+
+        try {
+
+            Connection con =
+                    DriverManager.getConnection(
+                            "jdbc:mysql://localhost:3306/bank",
+                            "root",
+                            "password");
+
+            con.setAutoCommit(false);
+
+            PreparedStatement debit =
+                    con.prepareStatement(
+                            "UPDATE accounts SET balance=balance-? WHERE id=?");
+
+            debit.setDouble(1,amount);
+            debit.setInt(2,from);
+
+            debit.executeUpdate();
+
+            PreparedStatement credit =
+                    con.prepareStatement(
+                            "UPDATE accounts SET balance=balance+? WHERE id=?");
+
+            credit.setDouble(1,amount);
+            credit.setInt(2,to);
+
+            credit.executeUpdate();
+
+            con.commit();
+
+            System.out.println("Transfer Success");
+
+        } catch(Exception e) {
+
+            System.out.println("Rollback");
+
+            e.printStackTrace();
+        }
+    }
+
+    // ==========================
+    // 34 Java Modules
+    // ==========================
+    static void moduleInfoExample() {
+
+        System.out.println(
+                """
+module com.utils {
+    exports com.utils;
+}
+
+module com.greetings {
+    requires com.utils;
+}
+""");
+    }
+
+    // ==========================
+    // 35 TCP Server
+    // ==========================
+    static void tcpServer() {
+
+        try {
+
+            ServerSocket server =
+                    new ServerSocket(5000);
+
+            System.out.println(
+                    "Server Waiting...");
+
+            Socket socket =
+                    server.accept();
+
+            BufferedReader in =
+                    new BufferedReader(
+                            new InputStreamReader(
+                                    socket.getInputStream()));
+
+            System.out.println(
+                    in.readLine());
+
+            socket.close();
+            server.close();
+
+        } catch(Exception e) {
+
+            System.out.println(e);
+        }
+    }
+
+    // ==========================
+    // 35 TCP Client
+    // ==========================
+    static void tcpClient() {
+
+        try {
+
+            Socket socket =
+                    new Socket(
+                            "localhost",
+                            5000);
+
+            PrintWriter out =
+                    new PrintWriter(
+                            socket.getOutputStream(),
+                            true);
+
+            out.println(
+                    "Hello Server");
+
+            socket.close();
+
+        } catch(Exception e) {
+
+            System.out.println(e);
+        }
+    }
+
+    // ==========================
+    // 36 HTTP Client
+    // ==========================
+    static void httpClientDemo()
+            throws Exception {
+
+        HttpClient client =
+                HttpClient.newHttpClient();
+
+        HttpRequest request =
+                HttpRequest.newBuilder()
+                        .uri(
+                                URI.create(
+                                        "https://api.github.com"))
+                        .build();
+
+        HttpResponse<String> response =
+                client.send(
+                        request,
+                        HttpResponse.BodyHandlers.ofString());
+
+        System.out.println(
+                "Status: "
+                        + response.statusCode());
+
+        System.out.println(
+                response.body()
+                        .substring(
+                                0,
+                                200));
+    }
+
+    // ==========================
+    // 37 javap Example
+    // ==========================
+    static void javapExample() {
+
+        System.out.println(
+                "Compile:");
+        System.out.println(
+                "javac MyClass.java");
+
+        System.out.println(
+                "Inspect:");
+        System.out.println(
+                "javap -c MyClass");
+    }
+
+    // ==========================
+    // 38 Decompile Example
+    // ==========================
+    static void decompileExample() {
+
+        System.out.println(
+                "Use JD-GUI or CFR");
+
+        System.out.println(
+                "Open .class file");
+    }
+
+    // ==========================
+    // 39 Reflection
+    // ==========================
+    static void reflectionDemo()
+            throws Exception {
+
+        Class<?> cls =
+                Sample.class;
+
+        Method[] methods =
+                cls.getDeclaredMethods();
+
+        for(Method m :
+                methods) {
+
+            System.out.println(
+                    m.getName());
+        }
+
+        Object obj =
+                cls.getDeclaredConstructor()
+                        .newInstance();
+
+        Method method =
+                cls.getMethod(
+                        "display");
+
+        method.invoke(obj);
+    }
+
+    static class Sample {
+
+        public void display() {
+
+            System.out.println(
+                    "Reflection Invoked");
+        }
+    }
+
+    // ==========================
+    // 40 Virtual Threads
+    // ==========================
+    static void virtualThreadDemo()
+            throws Exception {
+
+        for(int i=1;i<=100;i++) {
+
+            Thread.startVirtualThread(
+                    () -> {
+
+                        System.out.println(
+                                "Virtual Thread "
+                                        + Thread.currentThread());
+                    });
+        }
+
+        Thread.sleep(1000);
+    }
+
+    // ==========================
+    // 41 Executor Callable
+    // ==========================
+    static void executorDemo()
+            throws Exception {
+
+        ExecutorService executor =
+                Executors.newFixedThreadPool(3);
+
+        Callable<Integer> task1 =
+                () -> 10;
+
+        Callable<Integer> task2 =
+                () -> 20;
+
+        Future<Integer> f1 =
+                executor.submit(task1);
+
+        Future<Integer> f2 =
+                executor.submit(task2);
+
+        System.out.println(
+                "Result1 = "
+                        + f1.get());
+
+        System.out.println(
+                "Result2 = "
+                        + f2.get());
+
+        executor.shutdown();
+    }
+
+    // ==========================
+    // Pattern Matching Demo
+    // ==========================
+    static void patternDemo(
+            Object obj) {
+
+        switch(obj) {
+
+            case Integer i ->
+                    System.out.println(
+                            "Integer "
+                                    + i);
+
+            case String s ->
+                    System.out.println(
+                            "String "
+                                    + s);
+
+            case Double d ->
+                    System.out.println(
+                            "Double "
+                                    + d);
+
+            default ->
+                    System.out.println(
+                            "Unknown");
+        }
+    }
+}

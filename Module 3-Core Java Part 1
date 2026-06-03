@@ -1,0 +1,802 @@
+import java.util.*;
+import java.io.*;
+
+public class CoreJavaPart1 {
+
+    static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        while (true) {
+
+            System.out.println("\n===== CORE JAVA EXERCISES (1-30) =====");
+            System.out.println("1. Hello World");
+            System.out.println("2. Simple Calculator");
+            System.out.println("3. Even or Odd");
+            System.out.println("4. Leap Year");
+            System.out.println("5. Multiplication Table");
+            System.out.println("6. Data Type Demo");
+            System.out.println("7. Type Casting");
+            System.out.println("8. Operator Precedence");
+            System.out.println("9. Grade Calculator");
+            System.out.println("10. Number Guessing Game");
+            System.out.println("11. Factorial Calculator");
+            System.out.println("12. Method Overloading");
+            System.out.println("13. Recursive Fibonacci");
+            System.out.println("14. Array Sum & Average");
+            System.out.println("15. String Reversal");
+            System.out.println("16. Palindrome Checker");
+            System.out.println("17. Class & Object");
+            System.out.println("18. Inheritance");
+            System.out.println("19. Interface");
+            System.out.println("20. Try Catch");
+            System.out.println("21. Custom Exception");
+            System.out.println("22. File Writing");
+            System.out.println("23. File Reading");
+            System.out.println("24. ArrayList");
+            System.out.println("25. HashMap");
+            System.out.println("26. Thread Creation");
+            System.out.println("0. Exit");
+
+            System.out.print("Enter Choice: ");
+            int choice = sc.nextInt();
+
+            switch(choice) {
+                case 1 -> helloWorld();
+                case 2 -> simpleCalculator();
+                case 3 -> evenOddChecker();
+                case 4 -> leapYearChecker();
+                case 5 -> multiplicationTable();
+                case 6 -> dataTypeDemo();
+                case 7 -> typeCastingDemo();
+                case 8 -> operatorPrecedence();
+                case 9 -> gradeCalculator();
+                case 10 -> numberGuessingGame();
+                case 11 -> factorialCalculator();
+                case 12 -> methodOverloadingDemo();
+                case 13 -> fibonacciDemo();
+                case 14 -> arraySumAverage();
+                case 15 -> stringReversal();
+                case 16 -> palindromeChecker();
+                case 17 -> classObjectDemo();
+                case 18 -> inheritanceDemo();
+                case 19 -> interfaceDemo();
+                case 20 -> tryCatchDemo();
+                case 21 -> customExceptionDemo();
+                case 22 -> fileWritingDemo();
+                case 23 -> fileReadingDemo();
+                case 24 -> arrayListDemo();
+                case 25 -> hashMapDemo();
+                case 26 -> threadDemo();
+                case 0 -> System.exit(0);
+                default -> System.out.println("Invalid Choice");
+            }
+        }
+    }
+
+    // Exercise 1
+    static void helloWorld() {
+        System.out.println("Hello, World!");
+    }
+
+    // Exercise 2
+    static void simpleCalculator() {
+
+        System.out.print("Enter First Number: ");
+        double a = sc.nextDouble();
+
+        System.out.print("Enter Second Number: ");
+        double b = sc.nextDouble();
+
+        System.out.print("Enter Operator (+,-,*,/): ");
+        char op = sc.next().charAt(0);
+
+        switch(op) {
+            case '+' -> System.out.println("Result = " + (a+b));
+            case '-' -> System.out.println("Result = " + (a-b));
+            case '*' -> System.out.println("Result = " + (a*b));
+            case '/' -> {
+                if(b!=0)
+                    System.out.println("Result = " + (a/b));
+                else
+                    System.out.println("Cannot Divide By Zero");
+            }
+            default -> System.out.println("Invalid Operator");
+        }
+    }
+
+    // Exercise 3
+    static void evenOddChecker() {
+
+        System.out.print("Enter Number: ");
+        int num = sc.nextInt();
+
+        if(num % 2 == 0)
+            System.out.println("Even");
+        else
+            System.out.println("Odd");
+    }
+
+    // Exercise 4
+    static void leapYearChecker() {
+
+        System.out.print("Enter Year: ");
+        int year = sc.nextInt();
+
+        if((year % 4 == 0 && year % 100 != 0)
+                || (year % 400 == 0))
+            System.out.println("Leap Year");
+        else
+            System.out.println("Not Leap Year");
+    }
+
+    // Exercise 5
+    static void multiplicationTable() {
+
+        System.out.print("Enter Number: ");
+        int num = sc.nextInt();
+
+        for(int i=1;i<=10;i++) {
+            System.out.println(num + " x " + i + " = " + (num*i));
+        }
+    }
+
+    // Exercise 6
+    static void dataTypeDemo() {
+
+        int i = 100;
+        float f = 10.5f;
+        double d = 20.99;
+        char c = 'A';
+        boolean b = true;
+
+        System.out.println("int = " + i);
+        System.out.println("float = " + f);
+        System.out.println("double = " + d);
+        System.out.println("char = " + c);
+        System.out.println("boolean = " + b);
+    }
+
+    // Exercise 7
+    static void typeCastingDemo() {
+
+        double d = 25.89;
+        int i = (int)d;
+
+        System.out.println("Double: " + d);
+        System.out.println("Converted To Int: " + i);
+
+        int num = 100;
+        double d2 = num;
+
+        System.out.println("Int: " + num);
+        System.out.println("Converted To Double: " + d2);
+    }
+
+    // Exercise 8
+    static void operatorPrecedence() {
+
+        int result1 = 10 + 5 * 2;
+        int result2 = (10 + 5) * 2;
+
+        System.out.println("10 + 5 * 2 = " + result1);
+        System.out.println("(10 + 5) * 2 = " + result2);
+    }
+
+    // Exercise 9
+    static void gradeCalculator() {
+
+        System.out.print("Enter Marks: ");
+        int marks = sc.nextInt();
+
+        if(marks >= 90)
+            System.out.println("Grade A");
+        else if(marks >= 80)
+            System.out.println("Grade B");
+        else if(marks >= 70)
+            System.out.println("Grade C");
+        else if(marks >= 60)
+            System.out.println("Grade D");
+        else
+            System.out.println("Grade F");
+    }
+
+    // Exercise 10
+    static void numberGuessingGame() {
+
+        Random random = new Random();
+
+        int secret = random.nextInt(100) + 1;
+        int guess;
+
+        do {
+
+            System.out.print("Guess Number (1-100): ");
+            guess = sc.nextInt();
+
+            if(guess > secret)
+                System.out.println("Too High");
+            else if(guess < secret)
+                System.out.println("Too Low");
+            else
+                System.out.println("Correct!");
+
+        } while(guess != secret);
+    }
+        // ==========================
+    // Exercise 11 - Factorial
+    // ==========================
+    static void factorialCalculator() {
+
+        System.out.print("Enter Non-Negative Integer: ");
+        int n = sc.nextInt();
+
+        long factorial = 1;
+
+        for(int i = 1; i <= n; i++) {
+            factorial *= i;
+        }
+
+        System.out.println("Factorial = " + factorial);
+    }
+
+    // ==========================
+    // Exercise 12 - Method Overloading
+    // ==========================
+    static int add(int a, int b) {
+        return a + b;
+    }
+
+    static double add(double a, double b) {
+        return a + b;
+    }
+
+    static int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    static void methodOverloadingDemo() {
+
+        System.out.println("add(10,20) = " + add(10,20));
+
+        System.out.println("add(10.5,20.5) = "
+                + add(10.5,20.5));
+
+        System.out.println("add(10,20,30) = "
+                + add(10,20,30));
+    }
+
+    // ==========================
+    // Exercise 13 - Fibonacci
+    // ==========================
+    static int fibonacci(int n) {
+
+        if(n <= 1)
+            return n;
+
+        return fibonacci(n - 1)
+                + fibonacci(n - 2);
+    }
+
+    static void fibonacciDemo() {
+
+        System.out.print("Enter n: ");
+        int n = sc.nextInt();
+
+        System.out.println(
+                "Fibonacci = " + fibonacci(n));
+    }
+
+    // ==========================
+    // Exercise 14 - Array Sum Average
+    // ==========================
+    static void arraySumAverage() {
+
+        System.out.print("Enter Number Of Elements: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        int sum = 0;
+
+        for(int i=0;i<n;i++) {
+
+            System.out.print("Element "
+                    + (i+1) + ": ");
+
+            arr[i] = sc.nextInt();
+
+            sum += arr[i];
+        }
+
+        double avg = (double) sum / n;
+
+        System.out.println("Sum = " + sum);
+        System.out.println("Average = " + avg);
+    }
+
+    // ==========================
+    // Exercise 15 - String Reversal
+    // ==========================
+    static void stringReversal() {
+
+        sc.nextLine();
+
+        System.out.print("Enter String: ");
+
+        String str = sc.nextLine();
+
+        String reversed =
+                new StringBuilder(str)
+                        .reverse()
+                        .toString();
+
+        System.out.println(
+                "Reversed String = "
+                        + reversed);
+    }
+
+    // ==========================
+    // Exercise 16 - Palindrome
+    // ==========================
+    static void palindromeChecker() {
+
+        sc.nextLine();
+
+        System.out.print("Enter String: ");
+
+        String str = sc.nextLine();
+
+        String cleaned =
+                str.replaceAll(
+                        "[^a-zA-Z0-9]",
+                        "")
+                        .toLowerCase();
+
+        String reversed =
+                new StringBuilder(cleaned)
+                        .reverse()
+                        .toString();
+
+        if(cleaned.equals(reversed))
+            System.out.println(
+                    "Palindrome");
+        else
+            System.out.println(
+                    "Not Palindrome");
+    }
+        // ==========================
+    // Exercise 17 - Class & Object
+    // ==========================
+
+    static class Car {
+
+        String make;
+        String model;
+        int year;
+
+        Car(String make,
+            String model,
+            int year) {
+
+            this.make = make;
+            this.model = model;
+            this.year = year;
+        }
+
+        void displayDetails() {
+
+            System.out.println(
+                    "Make : " + make);
+
+            System.out.println(
+                    "Model : " + model);
+
+            System.out.println(
+                    "Year : " + year);
+        }
+    }
+
+    static void classObjectDemo() {
+
+        Car car1 =
+                new Car(
+                        "Toyota",
+                        "Camry",
+                        2022);
+
+        Car car2 =
+                new Car(
+                        "Honda",
+                        "City",
+                        2021);
+
+        car1.displayDetails();
+
+        System.out.println();
+
+        car2.displayDetails();
+    }
+
+    // ==========================
+    // Exercise 18 - Inheritance
+    // ==========================
+
+    static class Animal {
+
+        void makeSound() {
+
+            System.out.println(
+                    "Animal Sound");
+        }
+    }
+
+    static class Dog
+            extends Animal {
+
+        @Override
+        void makeSound() {
+
+            System.out.println(
+                    "Bark");
+        }
+    }
+
+    static void inheritanceDemo() {
+
+        Animal animal =
+                new Animal();
+
+        Dog dog =
+                new Dog();
+
+        animal.makeSound();
+
+        dog.makeSound();
+    }
+
+    // ==========================
+    // Exercise 19 - Interface
+    // ==========================
+
+    interface Playable {
+
+        void play();
+    }
+
+    static class Guitar
+            implements Playable {
+
+        public void play() {
+
+            System.out.println(
+                    "Playing Guitar");
+        }
+    }
+
+    static class Piano
+            implements Playable {
+
+        public void play() {
+
+            System.out.println(
+                    "Playing Piano");
+        }
+    }
+
+    static void interfaceDemo() {
+
+        Playable guitar =
+                new Guitar();
+
+        Playable piano =
+                new Piano();
+
+        guitar.play();
+
+        piano.play();
+    }
+
+    // ==========================
+    // Exercise 20 - Try Catch
+    // ==========================
+
+    static void tryCatchDemo() {
+
+        try {
+
+            System.out.print(
+                    "Enter First Number: ");
+
+            int a =
+                    sc.nextInt();
+
+            System.out.print(
+                    "Enter Second Number: ");
+
+            int b =
+                    sc.nextInt();
+
+            int result =
+                    a / b;
+
+            System.out.println(
+                    "Result = "
+                            + result);
+
+        } catch(
+                ArithmeticException e) {
+
+            System.out.println(
+                    "Cannot Divide By Zero");
+        }
+    }
+
+    // ==========================
+    // Exercise 21
+    // Custom Exception
+    // ==========================
+
+    static class InvalidAgeException
+            extends Exception {
+
+        InvalidAgeException(
+                String message) {
+
+            super(message);
+        }
+    }
+
+    static void customExceptionDemo() {
+
+        try {
+
+            System.out.print(
+                    "Enter Age: ");
+
+            int age =
+                    sc.nextInt();
+
+            if(age < 18) {
+
+                throw new InvalidAgeException(
+                        "Age Must Be 18 Or Above");
+            }
+
+            System.out.println(
+                    "Eligible");
+
+        } catch(
+                InvalidAgeException e) {
+
+            System.out.println(
+                    e.getMessage());
+        }
+    }
+        // ==========================
+    // Exercise 22 - File Writing
+    // ==========================
+
+    static void fileWritingDemo() {
+
+        sc.nextLine();
+
+        try {
+
+            System.out.print(
+                    "Enter Text To Write: ");
+
+            String text =
+                    sc.nextLine();
+
+            FileWriter writer =
+                    new FileWriter(
+                            "output.txt");
+
+            writer.write(text);
+
+            writer.close();
+
+            System.out.println(
+                    "Data Written Successfully");
+
+        } catch(Exception e) {
+
+            System.out.println(
+                    e.getMessage());
+        }
+    }
+
+    // ==========================
+    // Exercise 23 - File Reading
+    // ==========================
+
+    static void fileReadingDemo() {
+
+        try {
+
+            BufferedReader reader =
+                    new BufferedReader(
+                            new FileReader(
+                                    "output.txt"));
+
+            String line;
+
+            while((line =
+                    reader.readLine())
+                    != null) {
+
+                System.out.println(
+                        line);
+            }
+
+            reader.close();
+
+        } catch(Exception e) {
+
+            System.out.println(
+                    e.getMessage());
+        }
+    }
+
+    // ==========================
+    // Exercise 24 - ArrayList
+    // ==========================
+
+    static void arrayListDemo() {
+
+        sc.nextLine();
+
+        ArrayList<String> students =
+                new ArrayList<>();
+
+        System.out.print(
+                "How Many Names? ");
+
+        int n =
+                Integer.parseInt(
+                        sc.nextLine());
+
+        for(int i=0;i<n;i++) {
+
+            System.out.print(
+                    "Enter Name: ");
+
+            students.add(
+                    sc.nextLine());
+        }
+
+        System.out.println(
+                "\nStudent Names");
+
+        for(String name :
+                students) {
+
+            System.out.println(
+                    name);
+        }
+    }
+
+    // ==========================
+    // Exercise 25 - HashMap
+    // ==========================
+
+    static void hashMapDemo() {
+
+        HashMap<Integer,String>
+                map =
+                new HashMap<>();
+
+        System.out.print(
+                "How Many Students? ");
+
+        int n =
+                sc.nextInt();
+
+        for(int i=0;i<n;i++) {
+
+            System.out.print(
+                    "Enter ID: ");
+
+            int id =
+                    sc.nextInt();
+
+            sc.nextLine();
+
+            System.out.print(
+                    "Enter Name: ");
+
+            String name =
+                    sc.nextLine();
+
+            map.put(
+                    id,
+                    name);
+        }
+
+        System.out.print(
+                "Search ID: ");
+
+        int searchId =
+                sc.nextInt();
+
+        if(map.containsKey(
+                searchId)) {
+
+            System.out.println(
+                    "Name = "
+                            + map.get(
+                                    searchId));
+        }
+        else {
+
+            System.out.println(
+                    "ID Not Found");
+        }
+    }
+
+    // ==========================
+    // Exercise 26 - Thread Creation
+    // ==========================
+
+    static class MyThread
+            extends Thread {
+
+        String message;
+
+        MyThread(
+                String message) {
+
+            this.message =
+                    message;
+        }
+
+        public void run() {
+
+            for(int i=1;i<=5;i++) {
+
+                System.out.println(
+                        message
+                                + " "
+                                + i);
+
+                try {
+
+                    Thread.sleep(
+                            500);
+
+                } catch(Exception e) {
+
+                }
+            }
+        }
+    }
+
+    static void threadDemo() {
+
+        MyThread t1 =
+                new MyThread(
+                        "Thread-1");
+
+        MyThread t2 =
+                new MyThread(
+                        "Thread-2");
+
+        t1.start();
+
+        t2.start();
+
+        try {
+
+            t1.join();
+
+            t2.join();
+
+        } catch(Exception e) {
+
+        }
+
+        System.out.println(
+                "Threads Finished");
+    }
+}
