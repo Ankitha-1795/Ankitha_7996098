@@ -36,6 +36,10 @@ public class CoreJavaPart1 {
             System.out.println("24. ArrayList");
             System.out.println("25. HashMap");
             System.out.println("26. Thread Creation");
+            System.out.println("27. Lambda Expressions");
+            System.out.println("28. Stream API");
+            System.out.println("29. Records");
+            System.out.println("30. Pattern Matching");
             System.out.println("0. Exit");
 
             System.out.print("Enter Choice: ");
@@ -68,6 +72,10 @@ public class CoreJavaPart1 {
                 case 24 -> arrayListDemo();
                 case 25 -> hashMapDemo();
                 case 26 -> threadDemo();
+                case 27 -> lambdaExample();
+                case 28 -> streamExample();
+                case 29 -> recordExample();
+                case 30 -> patternMatchingDemo();
                 case 0 -> System.exit(0);
                 default -> System.out.println("Invalid Choice");
             }
@@ -799,4 +807,69 @@ public class CoreJavaPart1 {
         System.out.println(
                 "Threads Finished");
     }
+    // Exercise 27
+static void lambdaExample() {
+    List<String> names = new ArrayList<>();
+    names.add("Rahul");
+    names.add("Ankit");
+    names.add("Vijay");
+    names.add("Aman");
+
+    Collections.sort(names, (a,b) -> a.compareTo(b));
+
+    names.forEach(System.out::println);
+}
+
+// Exercise 28
+static void streamExample() {
+    List<Integer> numbers =
+            Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+
+    numbers.stream()
+            .filter(n -> n % 2 == 0)
+            .forEach(System.out::println);
+}
+
+// Exercise 29
+record Person(String name, int age) {}
+
+static void recordExample() {
+
+    List<Person> people =
+            Arrays.asList(
+                    new Person("Rahul",20),
+                    new Person("Ankit",16),
+                    new Person("Vijay",25)
+            );
+
+    people.stream()
+            .filter(p -> p.age() >= 18)
+            .forEach(System.out::println);
+}
+
+// Exercise 30
+static void printType(Object obj) {
+
+    switch(obj) {
+
+        case Integer i ->
+                System.out.println("Integer: " + i);
+
+        case String s ->
+                System.out.println("String: " + s);
+
+        case Double d ->
+                System.out.println("Double: " + d);
+
+        default ->
+                System.out.println("Unknown");
+    }
+}
+
+static void patternMatchingDemo() {
+
+    printType(100);
+    printType("Java");
+    printType(25.5);
+}
 }
